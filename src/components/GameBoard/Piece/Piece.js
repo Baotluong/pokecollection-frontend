@@ -11,14 +11,16 @@ const raritySymbol = (rarity) => {
 }
 
 const Piece = (props) => {
-  const { pokemon } = props;
+  const { pokemon, handlePokemonClick, pokemonCountInCollection } = props;
   return (
-    <div className='piece'>
+    <div className='piece'
+      onClick={() => handlePokemonClick(pokemon._id)}
+    >
       <img
         src={pokemon.sprite}
-        alt={pokemon.name}  
+        alt={pokemon.name}
       />
-      <div className='piece-name'>{pokemon.name.toUpperCase()}</div>
+      <div className='piece-name'>{`${pokemon.name.toUpperCase()} (${pokemonCountInCollection(pokemon._id)})`}</div>
       <div className='piece-rarity'>{raritySymbol(pokemon.rarity)}</div>
     </div>
   );

@@ -3,7 +3,8 @@ import Piece from './Piece/Piece';
 import Packs from './Packs/Packs';
 
 const GameBoard = (props) => {
-  const { state: { name, currency, pokecollection }, handlePackClick } = props;
+  const { state: { name, currency, pokecollection }, handlePackClick, handlePokemonClick, pokemonCountInCollection } = props;
+
   return (
     <div className='game-board'>
       <div className='info'>
@@ -14,7 +15,11 @@ const GameBoard = (props) => {
         />
       </div>
       <div className='collection'>
-        {pokecollection.pokemons.map(pokemon => <Piece pokemon={pokemon} />)}
+        {pokecollection.pokemons.map(pokemon => <Piece
+          pokemon={pokemon}
+          handlePokemonClick={handlePokemonClick}
+          pokemonCountInCollection={pokemonCountInCollection}
+        />)}
       </div>
     </div>
   );

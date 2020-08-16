@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import SignUp from './SignUp/SignUp';
 import GameBoard from './GameBoard/GameBoard';
+import { NUM_REQUIRED_TO_EVOLVE } from '../constants/constants';
 
 const url = 'https://pokecollection.herokuapp.com';
 const headers = {
@@ -31,7 +32,10 @@ class App extends React.Component {
     if (!this.state.name) {
       const trainerId = localStorage.getItem(localStorageEnum.trainerId);
       const res = await fetch(`${url}/trainer/${trainerId}`);
-      if (!res.ok) console.log(res.err);
+      if (!res.ok) {
+        const error = await res.text();
+        return console.log(error);
+      }
       const data = await res.json();
       if (data) {
         this.setState({
@@ -72,13 +76,23 @@ class App extends React.Component {
     this.setState({ loading: false });
   }
 
+  handlePokemonClick = async (pokemonToEvolveId) => {
+    // verify evolve
+    this.setState({ loading: true });
+    await this.postEvolve(pokemonToEvolveId);
+    this.setState({ loading: false });
+  }
+
   postTrainer = async () => {
     const res = await fetch(`${url}/trainer`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ name: this.state.name }),
     });
-    if (!res.ok) console.log(res.err);
+    if (!res.ok) {
+      const error = await res.text();
+      return console.log(error);
+    }
     const data = await res.json();
     if (data) {
       this.setState({
@@ -99,7 +113,10 @@ class App extends React.Component {
       headers,
       body: JSON.stringify({ trainerId: this.state._id, packType: pack.name }),
     });
-    if (!res.ok) console.log(res.err);
+    if (!res.ok) {
+      const error = await res.text();
+      return console.log(error);
+    }
     const data = await res.json();
     if (data) {
       this.setState((prevState) => ({
@@ -109,6 +126,43 @@ class App extends React.Component {
         },
       }));
     }
+  }
+
+  postEvolve = async (pokemonToEvolveId) => {
+    if (this.pokemonCountInCollection(pokemonToEvolveId) < 3) return console.log('insufficient pokemon to evolve');
+    const res = await fetch(`${url}/pokeCollection/evolve`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ trainerId: this.state._id, pokemonToEvolveId }),
+    });
+    if (!res.ok) {
+      const error = await res.text();
+      return console.log(error);
+    }
+    const data = await res.json();
+    if (data) {
+      const pokemonCollection = this.state.pokecollection.pokemons;
+      let numOfTimesFound = 0;
+      for (let i = 0; i < pokemonCollection.length; i++) {
+        if (pokemonCollection[i]._id === pokemonToEvolveId) {
+          numOfTimesFound++;
+          pokemonCollection.splice(i, 1);
+          i--;
+          if (numOfTimesFound >= NUM_REQUIRED_TO_EVOLVE) {
+            break;
+          }
+        }
+      }
+      this.setState(() => ({
+        pokecollection: {
+          pokemons: [...pokemonCollection, data],
+        },
+      }));
+    }
+  }
+
+  pokemonCountInCollection = (pokemonId) => {
+    return this.state.pokecollection.pokemons.filter(pokemon => pokemon._id === pokemonId).length;
   }
 
   render() {
@@ -127,6 +181,8 @@ class App extends React.Component {
             <GameBoard
               state={this.state}
               handlePackClick={this.handlePackClick}
+              handlePokemonClick={this.handlePokemonClick}
+              pokemonCountInCollection={this.pokemonCountInCollection}
             />
     }
     </div>;

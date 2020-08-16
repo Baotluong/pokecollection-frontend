@@ -14,3 +14,5 @@ export const PACK_TYPES = {
     commonsPerPack: 1,
   }
 };
+
+export const NUM_REQUIRED_TO_EVOLVE = 3;
