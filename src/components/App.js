@@ -50,7 +50,7 @@ class App extends React.Component {
   handleKeyPress = async (e) => {
     if (e.key === 'Enter') {
       this.setState({ loading: true });
-      await this.postNewTrainer();
+      await this.postTrainer();
       this.setState({ loading: false });
     }
   }
@@ -61,11 +61,18 @@ class App extends React.Component {
 
   handleNameClick = async () => {
     this.setState({ loading: true });
-    await this.postNewTrainer();
+    await this.postTrainer();
     this.setState({ loading: false });
   }
 
-  postNewTrainer = async () => {
+  handlePackClick = async (pack) => {
+    if (this.state.currency < pack.cost) return console.log('Insufficient funds.');
+    this.setState({ loading: true });
+    await this.postPack(pack);
+    this.setState({ loading: false });
+  }
+
+  postTrainer = async () => {
     const res = await fetch(`${url}/trainer`, {
       method: 'POST',
       headers,
@@ -86,6 +93,24 @@ class App extends React.Component {
     }
   }
 
+  postPack = async (pack) => {
+    const res = await fetch(`${url}/pokeCollection/pack`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ trainerId: this.state._id, packType: pack.name }),
+    });
+    if (!res.ok) console.log(res.err);
+    const data = await res.json();
+    if (data) {
+      this.setState((prevState) => ({
+        currency: prevState.currency - pack.cost,
+        pokecollection: {
+          pokemons: [...prevState.pokecollection.pokemons, ...data],
+        },
+      }));
+    }
+  }
+
   render() {
     return <div className='game-page'>
       {this.loading ?
@@ -101,6 +126,7 @@ class App extends React.Component {
           :
             <GameBoard
               state={this.state}
+              handlePackClick={this.handlePackClick}
             />
     }
     </div>;

@@ -14,7 +14,10 @@ const Piece = (props) => {
   const { pokemon } = props;
   return (
     <div className='piece'>
-      <img src={pokemon.sprite} />
+      <img
+        src={pokemon.sprite}
+        alt={pokemon.name}  
+      />
       <div className='piece-name'>{pokemon.name.toUpperCase()}</div>
       <div className='piece-rarity'>{raritySymbol(pokemon.rarity)}</div>
     </div>
