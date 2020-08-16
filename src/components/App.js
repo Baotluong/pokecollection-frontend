@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import SignUp from './SignUp/SignUp';
+import GameBoard from './GameBoard/GameBoard';
 
 const url = 'https://pokecollection.herokuapp.com';
 const headers = {
@@ -90,48 +92,19 @@ class App extends React.Component {
         <div>loading...</div>
         :
           !this.state._id ?
-            <div className='sign-up'>
-              <div>Hello New Trainer!</div>
-              <div>
-                <input
-                  type='text'
-                  placeholder="What's your name?"
-                  value={this.state.name}
-                  onChange={this.handleNameChange}
-                  onKeyPress={this.handleKeyPress}
-                />
-                <button
-                  disabled={!this.state.name}
-                  onClick={this.handleNameClick}
-                >Enter</button>
-              </div>
-            </div>
+            <SignUp
+              name={this.state.name}
+              handleNameChange={this.handleNameChange}
+              handleKeyPress={this.handleKeyPress}
+              handleNameClick={this.handleNameClick}
+            />
           :
-             <div className='game-board'>game board</div>
+            <GameBoard
+              state={this.state}
+            />
     }
     </div>;
   }
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;
