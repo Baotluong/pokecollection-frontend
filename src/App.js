@@ -6,12 +6,16 @@ const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 };
+const localStorageEnum = {
+  trainerId: 'trainerId',
+}
 
 const defaultState = {
-  id: null,
+  _id: null,
   name: '',
   currency: 0,
-  pokecollection: [],
+  pokecollection: {},
+  loading: false,
 };
 
 class App extends React.Component {
@@ -20,19 +24,32 @@ class App extends React.Component {
     this.state = defaultState;
   }
 
-  componentDidMount (){
+  componentDidMount = async () => {
+    this.setState({ loading: true })
     if (!this.state.name) {
-      const trainerId = localStorage.getItem('trainerId');
-      fetch(`${url}/trainer/${trainerId}`)
-        .then(res => res.json())
-        .then(data => {
-          this.setState({
-            _id: data._id,
-            name: data.name,
-            currency: data.currency,
-            pokecollection: data.pokecollection,
-          });
+      const trainerId = localStorage.getItem(localStorageEnum.trainerId);
+      const res = await fetch(`${url}/trainer/${trainerId}`);
+      if (!res.ok) console.log(res.err);
+      const data = await res.json();
+      if (data) {
+        this.setState({
+          _id: data._id,
+          name: data.name,
+          currency: data.currency,
+          pokecollection: {
+            pokemons: data.pokecollection.pokemons,
+          },
         });
+      }
+    }
+    this.setState({ loading: false })
+  }
+
+  handleKeyPress = async (e) => {
+    if (e.key === 'Enter') {
+      this.setState({ loading: true });
+      await this.postNewTrainer();
+      this.setState({ loading: false });
     }
   }
 
@@ -40,46 +57,58 @@ class App extends React.Component {
     this.setState({ name: e.target.value });
   }
 
-  handleNameClick = () => {
-    fetch(`${url}/trainer`, {
+  handleNameClick = async () => {
+    this.setState({ loading: true });
+    await this.postNewTrainer();
+    this.setState({ loading: false });
+  }
+
+  postNewTrainer = async () => {
+    const res = await fetch(`${url}/trainer`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ name: this.state.name }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          _id: data._id,
-          name: data.name,
-          currency: data.currency,
-          pokecollection: data.pokecollection,
-        });
-      })
-      .catch(err => console.log(err));
+    });
+    if (!res.ok) console.log(res.err);
+    const data = await res.json();
+    if (data) {
+      this.setState({
+        _id: data._id,
+        name: data.name,
+        currency: data.currency,
+        pokecollection: {
+          pokemons: data.pokecollection.pokemons,
+        },
+      });
+      localStorage.setItem(localStorageEnum.trainerId, data._id);
+    }
   }
 
   render() {
     return <div className='game-page'>
-      {!this.state._id &&
-        <div className='sign-up'>
-          <div>Hello New Trainer!</div>
-          <div>
-            <input
-              type='text'
-              placeholder="What's your name?"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-            />
-            <button
-              disabled={!this.state.name}
-              onClick={this.handleNameClick}
-            >Enter</button>
-          </div>
-        </div>
-      }
-      {this.state._id && 
-        <div className='game-board'>game board</div>
-      }
+      {this.loading ?
+        <div>loading...</div>
+        :
+          !this.state._id ?
+            <div className='sign-up'>
+              <div>Hello New Trainer!</div>
+              <div>
+                <input
+                  type='text'
+                  placeholder="What's your name?"
+                  value={this.state.name}
+                  onChange={this.handleNameChange}
+                  onKeyPress={this.handleKeyPress}
+                />
+                <button
+                  disabled={!this.state.name}
+                  onClick={this.handleNameClick}
+                >Enter</button>
+              </div>
+            </div>
+          :
+             <div className='game-board'>game board</div>
+    }
     </div>;
   }
 }
