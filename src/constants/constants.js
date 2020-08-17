@@ -15,4 +15,10 @@ export const PACK_TYPES = {
   }
 };
 
+export const RARITIES = {
+  0: 'common',
+  1: 'uncommon',
+  2: 'rare',
+};
+
 export const NUM_REQUIRED_TO_EVOLVE = 3;

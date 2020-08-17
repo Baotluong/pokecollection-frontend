@@ -7,8 +7,11 @@
 :root {
   margin: 0;
   background: var(--dark-bg);
-  --dark-bg: #171717;
-  --light-bg: #a0a0a0;
+  --dark-bg: #383636;
+  --light-bg: #bfbaba;
+  --rare-color: #ae15ec;
+  --uncommon-color: #1952bd;
+  --common-color: #0c6919;
 }
 
 body {
@@ -26,5 +29,16 @@ html {
 .row {
   width: 100%;
   display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.space-between {
   justify-content: space-between;
+}
+
+.center {
+  justify-content: center;
 }

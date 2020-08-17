@@ -77,7 +77,7 @@ class App extends React.Component {
   }
 
   handlePokemonClick = async (pokemonToEvolveId) => {
-    if (this.pokemonCountInCollection() < 3) return console.log('Insufficient Pokemon.');
+    if (this.pokemonCountInCollection(pokemonToEvolveId) < NUM_REQUIRED_TO_EVOLVE) return console.log('Insufficient Pokemon.');
     this.setState({ loading: true });
     await this.postEvolve(pokemonToEvolveId);
     this.setState({ loading: false });
@@ -129,7 +129,6 @@ class App extends React.Component {
   }
 
   postEvolve = async (pokemonToEvolveId) => {
-    if (this.pokemonCountInCollection(pokemonToEvolveId) < NUM_REQUIRED_TO_EVOLVE) return console.log('insufficient pokemon to evolve');
     const res = await fetch(`${url}/pokeCollection/evolve`, {
       method: 'POST',
       headers,
@@ -155,7 +154,7 @@ class App extends React.Component {
       }
       this.setState(() => ({
         pokecollection: {
-          pokemons: [...pokemonCollection, data],
+          pokemons: [data, ...pokemonCollection],
         },
       }));
     }

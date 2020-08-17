@@ -1,5 +1,5 @@
 .game-board {
-  width: 102.4rem;
+  width: 70rem;
   margin: 0 auto;
 }
 
@@ -14,4 +14,11 @@
 .money {
   height: 1.8rem;
   padding-top: 1px;
+}
+
+.collection {
+  background-color: var(--light-bg);
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
 }

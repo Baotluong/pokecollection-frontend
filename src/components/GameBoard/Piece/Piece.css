@@ -1,0 +1,30 @@
+.clickable>.image {
+  filter: drop-shadow(0 0 2rem yellow);
+}
+
+.clickable:hover {
+  cursor: pointer;
+  filter: saturate(2) contrast(2);
+}
+
+.piece {
+  width: 16.66%;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.piece>.image {
+  width: 100%;
+}
+
+.rare {
+  color: var(--rare-color);
+}
+
+.uncommon {
+  color: var(--uncommon-color);
+}
+
+.common {
+  color: var(--common-color);
+}

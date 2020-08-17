@@ -10,24 +10,24 @@ const GameBoard = (props) => {
   return (
     <div className='game-board'>
       <div className='info'>
-        <div className='row'>
+        <div className='row space-between'>
           <div className='name'>Name: {name}</div>
           <div className='currency'>Currency: {currency}
             <img className='money' alt='money' src={money} />
           </div>
         </div>
-        <div className='row'>
-          <Packs
-            handlePackClick={handlePackClick}
-          />
-        </div>
+        <Packs
+          handlePackClick={handlePackClick}
+        />
       </div>
       <div className='collection'>
-        {pokecollection.pokemons.map(pokemon => <Piece
-          pokemon={pokemon}
-          handlePokemonClick={handlePokemonClick}
-          pokemonCountInCollection={pokemonCountInCollection}
-        />)}
+        <div className='row wrap'>
+          {pokecollection.pokemons.map(pokemon => <Piece
+            pokemon={pokemon}
+            handlePokemonClick={handlePokemonClick}
+            pokemonCountInCollection={pokemonCountInCollection}
+          />)}
+        </div>
       </div>
     </div>
   );

@@ -1,27 +1,27 @@
 import React from 'react';
+import './Piece.css';
+import { NUM_REQUIRED_TO_EVOLVE, RARITIES } from '../../../constants/constants';
 
-const raritySymbol = (rarity) => {
-  if (rarity === 2) {
-    return <span>&#9733;</span>;
-  } else if (rarity === 1) {
-    return <span>&#9632;</span>;
-  } else {
-    return <span>&#9679;</span>;
-  }
-}
 
 const Piece = (props) => {
   const { pokemon, handlePokemonClick, pokemonCountInCollection } = props;
+
+  const canEvolve = (pokemon) => {
+    return pokemonCountInCollection(pokemon._id) > NUM_REQUIRED_TO_EVOLVE && pokemon.evolvesTo.length > 0;
+  };
+
   return (
-    <div className='piece'
+    <div className={`piece ${canEvolve(pokemon) ? 'clickable' : 'unclickable'}`}
       onClick={() => handlePokemonClick(pokemon._id)}
     >
       <img
+        className='image'
         src={pokemon.sprite}
         alt={pokemon.name}
       />
-      <div className='piece-name'>{`${pokemon.name.toUpperCase()} (${pokemonCountInCollection(pokemon._id)})`}</div>
-      <div className='piece-rarity'>{raritySymbol(pokemon.rarity)}</div>
+      <div className='row center'>
+        <div className={`name ${RARITIES[pokemon.rarity]}`}>{`${pokemon.name.toUpperCase()}`}</div>
+      </div>
     </div>
   );
 };
