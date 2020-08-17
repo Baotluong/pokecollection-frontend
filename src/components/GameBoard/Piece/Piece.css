@@ -7,10 +7,29 @@
   filter: saturate(2) contrast(2);
 }
 
+
 .piece {
   width: 16.66%;
   font-size: 2rem;
   text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .piece {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .piece {
+    width: 25%;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .piece {
+    width: 33.3%;
+  }
 }
 
 .piece>.image {
