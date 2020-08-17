@@ -10,23 +10,23 @@
 
 .piece {
   width: 16.66%;
-  font-size: 2rem;
+  font-size: 1.9rem;
   text-align: center;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 590px) {
   .piece {
     width: 20%;
   }
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 480px) {
   .piece {
     width: 25%;
   }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 370px) {
   .piece {
     width: 33.3%;
   }

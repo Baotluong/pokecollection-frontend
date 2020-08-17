@@ -20,7 +20,7 @@ const Piece = (props) => {
         alt={pokemon.name}
       />
       <div className='row center'>
-        <div className={`name ${RARITIES[pokemon.rarity]}`}>{`${pokemon.name.toUpperCase()}`}</div>
+        <div className={`name ${RARITIES[pokemon.rarity]}`}>{`${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}`}</div>
       </div>
     </div>
   );
