@@ -1,0 +1,17 @@
+.game-board {
+  width: 102.4rem;
+  margin: 0 auto;
+}
+
+.info {
+  background-color: var(--light-bg);
+  margin-top: 7rem;
+  padding: 2rem 4rem;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+}
+
+.money {
+  height: 1.8rem;
+  padding-top: 1px;
+}

@@ -1,0 +1,17 @@
+/* .money {
+  height: 1.4rem;
+  padding-top: 1px;
+} */
+
+.pack {
+  background-color: #efefef;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-right: 2rem;
+}
+
+.pack:hover {
+  cursor: pointer;
+  filter: invert(1);
+}
+
