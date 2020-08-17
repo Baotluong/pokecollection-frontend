@@ -1,0 +1,25 @@
+.sign-up {
+  background-color: var(--light-bg);
+  margin-top: 7rem;
+  padding: 2rem 4rem;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+}
+
+.sign-up>.name {
+  color: rgb(33, 37, 37);
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 1rem 2rem;
+  border: none;
+  margin-right: 1rem;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.sign-up>input::placeholder {
+  color:darkgrey;
+  font-size: 1.7rem;
+  font-weight: 500;
+}

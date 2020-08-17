@@ -9,6 +9,7 @@
   background: var(--dark-bg);
   --dark-bg: #383636;
   --light-bg: #bfbaba;
+  --light-button: #efefef;
   --rare-color: #ae15ec;
   --uncommon-color: #1952bd;
   --common-color: #0c6919;
@@ -41,4 +42,9 @@ html {
 
 .center {
   justify-content: center;
+}
+
+.game-page {
+  max-width: 70rem;
+  margin: 0 auto;
 }

@@ -1,10 +1,5 @@
-/* .money {
-  height: 1.4rem;
-  padding-top: 1px;
-} */
-
 .pack {
-  background-color: #efefef;
+  background-color: var(--light-button);
   border-radius: 0.5rem;
   padding: 0.5rem;
   margin-right: 2rem;
@@ -14,4 +9,3 @@
   cursor: pointer;
   filter: invert(1);
 }
-

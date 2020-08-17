@@ -22,11 +22,14 @@ const GameBoard = (props) => {
       </div>
       <div className='collection'>
         <div className='row wrap'>
-          {pokecollection.pokemons.map(pokemon => <Piece
-            pokemon={pokemon}
-            handlePokemonClick={handlePokemonClick}
-            pokemonCountInCollection={pokemonCountInCollection}
-          />)}
+          {pokecollection.pokemons.length ?
+            pokecollection.pokemons.map(pokemon => <Piece
+              pokemon={pokemon}
+              handlePokemonClick={handlePokemonClick}
+              pokemonCountInCollection={pokemonCountInCollection}
+            />) :
+            <div>You don't have any Pokémon yet.</div>
+          }
         </div>
       </div>
     </div>

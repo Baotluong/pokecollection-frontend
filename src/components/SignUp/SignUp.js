@@ -1,22 +1,18 @@
 import React from 'react';
+import './SignUp.css';
 
 const SignUp = (props) => {
   return (
     <div className='sign-up'>
-      <div>Hello New Trainer!</div>
-      <div>
+      <div>What's your name, trainer?</div>
         <input
+          className='name'
           type='text'
-          placeholder="What's your name?"
+          placeholder="Press enter to submit"
           value={props.name}
           onChange={props.handleNameChange}
           onKeyPress={props.handleKeyPress}
         />
-        <button
-          disabled={!props.name}
-          onClick={props.handleNameClick}
-        >Enter</button>
-      </div>
     </div>
   );
 };

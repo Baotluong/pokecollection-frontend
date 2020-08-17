@@ -63,12 +63,6 @@ class App extends React.Component {
     this.setState({ name: e.target.value });
   }
 
-  handleNameClick = async () => {
-    this.setState({ loading: true });
-    await this.postTrainer();
-    this.setState({ loading: false });
-  }
-
   handlePackClick = async (pack) => {
     if (this.state.currency < pack.cost) return console.log('Insufficient funds.');
     this.setState({ loading: true });
@@ -89,6 +83,7 @@ class App extends React.Component {
       headers,
       body: JSON.stringify({ name: this.state.name }),
     });
+    debugger
     if (!res.ok) {
       const error = await res.text();
       return console.log(error);
@@ -174,7 +169,6 @@ class App extends React.Component {
               name={this.state.name}
               handleNameChange={this.handleNameChange}
               handleKeyPress={this.handleKeyPress}
-              handleNameClick={this.handleNameClick}
             />
           :
             <GameBoard
