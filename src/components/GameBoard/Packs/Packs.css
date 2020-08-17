@@ -1,3 +1,7 @@
+.packs {
+  margin-top: 1rem;
+}
+
 .pack {
   background-color: var(--light-button);
   border-radius: 0.5rem;
