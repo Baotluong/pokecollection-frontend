@@ -95,7 +95,7 @@ class App extends React.Component {
         name: data.name,
         currency: data.currency,
         pokecollection: {
-          pokemons: data.pokecollection.pokemons,
+          pokemons: [],
         },
       });
       localStorage.setItem(localStorageEnum.trainerId, data._id);
