@@ -1,10 +1,9 @@
 import React from 'react';
+import { BASE_URL, NUM_REQUIRED_TO_EVOLVE } from '../constants/constants';
 import './App.css';
-import SignUp from './SignUp/SignUp';
 import GameBoard from './GameBoard/GameBoard';
-import { NUM_REQUIRED_TO_EVOLVE } from '../constants/constants';
+import SignUp from './SignUp/SignUp';
 
-const url = 'https://pokecollection.herokuapp.com';
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
@@ -31,7 +30,7 @@ class App extends React.Component {
     this.setState({ loading: true })
     if (!this.state.name) {
       const trainerId = localStorage.getItem(localStorageEnum.trainerId);
-      const res = await fetch(`${url}/trainer/${trainerId}`);
+      const res = await fetch(`${BASE_URL}/trainer/${trainerId}`);
       if (!res.ok) {
         const error = await res.text();
         return console.log(error);
@@ -78,7 +77,7 @@ class App extends React.Component {
   }
 
   postTrainer = async () => {
-    const res = await fetch(`${url}/trainer`, {
+    const res = await fetch(`${BASE_URL}/trainer`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ name: this.state.name }),
@@ -103,7 +102,7 @@ class App extends React.Component {
   }
 
   postPack = async (pack) => {
-    const res = await fetch(`${url}/pokeCollection/pack`, {
+    const res = await fetch(`${BASE_URL}/pokeCollection/pack`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ trainerId: this.state._id, packType: pack.name }),
@@ -124,7 +123,7 @@ class App extends React.Component {
   }
 
   postEvolve = async (pokemonToEvolveId) => {
-    const res = await fetch(`${url}/pokeCollection/evolve`, {
+    const res = await fetch(`${BASE_URL}/pokeCollection/evolve`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ trainerId: this.state._id, pokemonToEvolveId }),

@@ -22,3 +22,5 @@ export const RARITIES = {
 };
 
 export const NUM_REQUIRED_TO_EVOLVE = 3;
+
+export const BASE_URL = 'https://pokecollection.onrender.com';
