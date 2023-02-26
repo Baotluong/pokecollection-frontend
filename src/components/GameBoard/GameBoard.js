@@ -1,8 +1,8 @@
 import React from 'react';
-import Piece from './Piece/Piece';
-import Packs from './Packs/Packs';
-import './GameBoard.css';
 import money from '../../images/money.png';
+import './GameBoard.css';
+import Packs from './Packs/Packs';
+import Piece from './Piece/Piece';
 
 const GameBoard = (props) => {
   const { state: { name, currency, pokecollection }, handlePackClick, handlePokemonClick, pokemonCountInCollection } = props;

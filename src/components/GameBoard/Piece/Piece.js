@@ -1,6 +1,6 @@
 import React from 'react';
-import './Piece.css';
 import { NUM_REQUIRED_TO_EVOLVE, RARITIES } from '../../../constants/constants';
+import './Piece.css';
 
 
 const Piece = (props) => {
