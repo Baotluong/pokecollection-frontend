@@ -82,7 +82,6 @@ class App extends React.Component {
       headers,
       body: JSON.stringify({ name: this.state.name }),
     });
-    debugger
     if (!res.ok) {
       const error = await res.text();
       return console.log(error);
